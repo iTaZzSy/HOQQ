@@ -1,15 +1,14 @@
 import { z } from 'zod';
 import Reservation, { IReservation } from '../models/reservation.model';
 
-// Zod schema for validation - can be kept here or in a separate validation file
 export const reservationValidationSchema = z.object({
-  guestName: z.string().min(1, { message: "Guest name is required" }),
-  phone: z.string().min(1, { message: "Phone number is required" }),
+  guestName: z.string().min(1, { message: "İsim gereklidir" }),
+  phone: z.string().min(1, { message: "Telefon numarası gereklidir" }),
   date: z.coerce.date().refine((val) => val > new Date(), {
-    message: "Date must be a valid future date",
+    message: "Tarih geçerli bir gelecek tarih olmalıdır",
   }),
-  time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, { message: "Invalid time format (HH:MM)" }),
-  guestCount: z.coerce.number().int().min(1).max(10, { message: "Guest count must be between 1 and 10" }),
+  time: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/, { message: "Geçersiz saat formatı (SS:DD)" }),
+  guestCount: z.coerce.number().int().min(1).max(10, { message: "Kişi sayısı 1 ile 10 arasında olmalıdır" }),
 });
 
 export type ReservationInput = z.infer<typeof reservationValidationSchema>;
@@ -17,7 +16,6 @@ export type ReservationInput = z.infer<typeof reservationValidationSchema>;
 export const createReservation = async (input: ReservationInput): Promise<IReservation> => {
   const { date, time } = input;
 
-  // 1. Check for conflicting reservations
   const startOfDay = new Date(date);
   startOfDay.setUTCHours(0, 0, 0, 0);
 
@@ -33,12 +31,16 @@ export const createReservation = async (input: ReservationInput): Promise<IReser
   });
 
   if (existingReservation) {
-    // Using a custom error object or class is better for specific error handling
-    throw new Error("Time slot unavailable");
+    throw new Error("Seçilen zaman dilimi müsait değil");
   }
 
-  // 2. Save the new reservation
-  const newReservation = new Reservation(input);
+  const newReservation = new Reservation({
+    name: input.guestName,
+    phone: input.phone,
+    date: input.date,
+    time: input.time,
+    guests: input.guestCount
+  });
   await newReservation.save();
   return newReservation;
 };
@@ -46,8 +48,13 @@ export const createReservation = async (input: ReservationInput): Promise<IReser
 export const updateReservationSchema = reservationValidationSchema.partial();
 export type UpdateReservationInput = z.infer<typeof updateReservationSchema>;
 
-export const getReservations = async (): Promise<IReservation[]> => {
-  return Reservation.find().sort({ date: -1 });
+export const getReservations = async (): Promise<any[]> => {
+  const reservations = await Reservation.find().sort({ date: -1 }).lean();
+  return reservations.map((res: any) => ({
+    ...res,
+    name: res.name || res.guestName,
+    guests: res.guests || res.guestCount
+  }));
 };
 
 export const updateReservation = async (id: string, payload: UpdateReservationInput): Promise<IReservation | null> => {

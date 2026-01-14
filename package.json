@@ -1,5 +1,5 @@
 {
-  "name": "copy-of-hoqqa-hookah-and-game-lounge",
+  "name": "hoqqa",
   "private": true,
   "version": "0.0.0",
   "type": "commonjs",
@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "dev:backend": "ts-node-dev --project tsconfig.backend.json --respawn --transpile-only src/server.ts",
+    "dev:backend": "ts-node-dev --project tsconfig.backend.json --respawn --transpile-only server/server.ts",
     "build:backend": "tsc -p tsconfig.backend.json",
     "start:backend": "node dist/server.js",
     "seed": "npm run build:backend && node dist/seed.js"

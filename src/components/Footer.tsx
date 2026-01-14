@@ -3,15 +3,6 @@ import React from 'react';
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
-  const navLinks = [
-    { href: '#hero', text: 'Anasayfa' },
-    { href: '#about', text: 'Hakkımızda' },
-    { href: '#menu', text: 'Menü' },
-    { href: '#events', text: 'Etkinlikler' },
-    { href: '#gallery', text: 'Galeri' },
-    { href: '#reservations', text: 'Rezervasyon' },
-  ];
-
   return (
     <footer id="footer" className="bg-[#161413] border-t border-stone-800/50">
       <div className="container mx-auto px-6 pt-16 pb-8">
@@ -21,7 +12,7 @@ const Footer: React.FC = () => {
                 Sorularınız, rezervasyonlarınız veya özel etkinlikleriniz için bize ulaşın. Sizi ağırlamaktan mutluluk duyarız.
             </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-8 text-center md:text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-8 text-center md:text-left">
           
           {/* Column 1: About */}
           <div className="space-y-4">
@@ -29,20 +20,6 @@ const Footer: React.FC = () => {
             <p className="text-stone-400 text-sm">
               Lüks nargile sanatını, elektronik oyunların heyecanını ve seçkin sosyal atmosferi bir araya getiren eşsiz bir mekan.
             </p>
-          </div>
-
-          {/* Column 2: Quick Links */}
-          <div>
-            <h3 className="text-lg font-bold text-stone-200 mb-4 uppercase tracking-wider">Hızlı Erişim</h3>
-            <ul className="space-y-2">
-              {navLinks.map(link => (
-                <li key={link.href}>
-                  <a href={link.href} className="text-stone-400 hover:text-amber-500 transition-colors duration-200">
-                    {link.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
           
           {/* Column 3: Contact Info */}
@@ -52,6 +29,10 @@ const Footer: React.FC = () => {
               <p className="flex items-center justify-center md:justify-start">
                 <i className="fas fa-map-marker-alt w-6 text-amber-500"></i>
                 <span>123 Lüks Caddesi, İstanbul</span>
+              </p>
+              <p className="flex items-center justify-center md:justify-start">
+                <i className="fas fa-phone w-6 text-amber-500"></i>
+                <span>+90 555 123 45 67</span>
               </p>
               <p className="flex items-center justify-center md:justify-start">
                 <i className="fas fa-clock w-6 text-amber-500"></i>

@@ -26,9 +26,9 @@ const Header: React.FC = () => {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#1c1a19]/80 backdrop-blur-sm border-b border-white/5">
-        <div className="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div className="w-full px-6 py-4 flex justify-between items-center min-[960px]:gap-x-12">
           <a href="#hero" onClick={(e) => handleLinkClick(e, '#hero')} className="text-3xl font-bold tracking-wider text-amber-500">HOQQA</a>
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden min-[960px]:flex items-center space-x-8">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -41,7 +41,7 @@ const Header: React.FC = () => {
             ))}
           </nav>
           <button 
-            className="md:hidden text-white text-2xl z-50" 
+            className="min-[960px]:hidden text-white text-2xl z-50" 
             aria-label="Toggle menu"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -51,7 +51,7 @@ const Header: React.FC = () => {
       </header>
       
       {/* Mobile Menu Overlay */}
-      <div className={`fixed inset-0 z-40 bg-[#1c1a19]/95 backdrop-blur-sm transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} md:hidden`}>
+      <div className={`fixed inset-0 z-40 bg-[#1c1a19]/95 backdrop-blur-sm transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} min-[960px]:hidden`}>
         <nav className="flex flex-col items-center justify-center h-full space-y-8">
           {navLinks.map((link) => (
             <a

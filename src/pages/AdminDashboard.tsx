@@ -13,7 +13,6 @@ const AdminDashboard: React.FC = () => {
     if (!token) {
       navigate('/x9z');
     } else {
-        // Set the token for all future requests
         apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     }
   }, [navigate]);

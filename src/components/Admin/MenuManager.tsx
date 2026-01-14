@@ -14,7 +14,6 @@ const MenuManager: React.FC = () => {
   const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
   const [loading, setLoading] = useState(false);
   
-  // For file upload, we need to store the File object, not just the string path
   const [newItem, setNewItem] = useState<{
     name: string;
     description: string;
@@ -29,7 +28,6 @@ const MenuManager: React.FC = () => {
     imageFile: null
   });
 
-  // State for editing price
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editPrice, setEditPrice] = useState<number>(0);
 
@@ -61,14 +59,14 @@ const MenuManager: React.FC = () => {
         formData.append('image', newItem.imageFile);
       }
 
+      const token = localStorage.getItem('token');
       await apiClient.post('/menu', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`
         },
       });
 
       setNewItem({ name: '', description: '', category: 'Nargile', price: 0, imageFile: null });
-      // Clear file input manually
       const fileInput = document.getElementById('fileInput') as HTMLInputElement;
       if (fileInput) fileInput.value = '';
       
@@ -81,7 +79,12 @@ const MenuManager: React.FC = () => {
   const handleDelete = async (id: string) => {
     if (!window.confirm("Silmek istediğinize emin misiniz?")) return;
     try {
-      await apiClient.delete(`/menu/${id}`);
+      const token = localStorage.getItem('token');
+      await apiClient.delete(`/menu/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       fetchMenu();
     } catch (err) {
       alert('Silinirken hata oluştu');
@@ -99,18 +102,24 @@ const MenuManager: React.FC = () => {
   };
 
   const handleUpdatePrice = async (id: string) => {
-    // 1. Optimistic Update: Update UI immediately
     setMenuItems(prevItems => 
       prevItems.map(item => item._id === id ? { ...item, price: editPrice } : item)
     );
-    setEditingId(null); // Exit edit mode immediately
+    setEditingId(null);
 
     try {
-      // 2. Send request to server in background
-      await apiClient.patch(`/menu/${id}`, { price: editPrice });
-    } catch (err) {
-      alert('Fiyat güncellenirken hata oluştu');
-      // Revert changes if error occurs (Optional but recommended for robust apps)
+      const token = localStorage.getItem('token');
+      const formData = new FormData();
+      formData.append('price', editPrice.toString());
+      await apiClient.patch(`/menu/${id}`, formData, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+    } catch (err: any) {
+      console.error(err);
+      const errorMessage = err.response?.data?.message || 'Fiyat güncellenirken hata oluştu';
+      alert(errorMessage);
       fetchMenu();
     }
   };
@@ -120,8 +129,11 @@ const MenuManager: React.FC = () => {
     formData.append('image', file);
     
     try {
+        const token = localStorage.getItem('token');
         await apiClient.patch(`/menu/${id}`, formData, {
-            headers: { 'Content-Type': 'multipart/form-data' }
+            headers: { 
+              'Authorization': `Bearer ${token}`
+            }
         });
         fetchMenu();
     } catch (err) {
@@ -132,7 +144,12 @@ const MenuManager: React.FC = () => {
   const handleRemoveImage = async (id: string) => {
       if(!window.confirm("Resmi kaldırmak istediğinize emin misiniz?")) return;
       try {
-          await apiClient.patch(`/menu/${id}`, { removeImage: 'true' });
+          const token = localStorage.getItem('token');
+          await apiClient.patch(`/menu/${id}`, { removeImage: 'true' }, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
           fetchMenu();
       } catch (err) {
           alert('Resim kaldırılırken hata oluştu');
@@ -141,7 +158,6 @@ const MenuManager: React.FC = () => {
 
   return (
     <div className="space-y-8">
-      {/* Add New Item Form */}
       <div className="bg-stone-800/50 p-4 rounded border border-stone-600">
         <h3 className="text-lg font-bold mb-4 text-amber-500">Yeni Ürün Ekle</h3>
         <form onSubmit={handleCreate} className="grid gap-4 md:grid-cols-2 lg:grid-cols-6 items-end">
@@ -211,7 +227,6 @@ const MenuManager: React.FC = () => {
         </form>
       </div>
 
-      {/* List Items */}
       <div>
         <h3 className="text-lg font-bold mb-4 text-stone-200">Menü Listesi</h3>
         {loading ? <p>Yükleniyor...</p> : (
@@ -219,15 +234,13 @@ const MenuManager: React.FC = () => {
                 {menuItems.map(item => (
                     <div key={item._id} className="flex justify-between items-center bg-stone-800/30 p-3 rounded border border-stone-700">
                         <div className="flex items-center gap-4">
-                            {/* Image Thumbnail */}
                             <div className="relative group w-12 h-12 flex-shrink-0 bg-stone-900 rounded overflow-hidden border border-stone-600">
                                 {item.image ? (
                                     <>
                                         <img src={`${import.meta.env.VITE_API_URL.replace('/api', '')}${item.image}`} alt={item.name} className="w-full h-full object-cover" />
-                                        {/* Remove Button Overlay */}
                                         <button 
                                             onClick={(e) => {
-                                                e.stopPropagation(); // Prevent triggering file input if stacked
+                                                e.stopPropagation();
                                                 handleRemoveImage(item._id);
                                             }}
                                             className="absolute top-0 right-0 bg-red-600 text-white w-4 h-4 flex items-center justify-center text-[10px] hover:bg-red-700 z-20"
@@ -240,7 +253,6 @@ const MenuManager: React.FC = () => {
                                     <div className="w-full h-full flex items-center justify-center text-xs text-stone-600">No Img</div>
                                 )}
                                 
-                                {/* Hidden input for quick update (Only clickable if not hitting the remove button) */}
                                 <input 
                                     type="file" 
                                     className="absolute inset-0 opacity-0 cursor-pointer z-10"
@@ -261,7 +273,6 @@ const MenuManager: React.FC = () => {
                         
                         <div className="flex items-center gap-4">
                             {editingId === item._id ? (
-                                // Edit Mode
                                 <div className="flex items-center gap-2">
                                     <input 
                                         type="number" 
@@ -288,7 +299,6 @@ const MenuManager: React.FC = () => {
                                     </button>
                                 </div>
                             ) : (
-                                // View Mode
                                 <>
                                     <span className="font-bold text-stone-200">{item.price} ₺</span>
                                     <button 

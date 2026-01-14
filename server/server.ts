@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import app from './app';
 
-// Load environment variables from .env file
 dotenv.config();
 dotenv.config({ path: '.env.local' });
 
@@ -20,7 +19,7 @@ const connectDB = async () => {
         console.log('MongoDB connected successfully.');
     } catch (error) {
         console.error('Database connection error:', error);
-        process.exit(1); // Exit process with failure
+        process.exit(1);
     }
 };
 
