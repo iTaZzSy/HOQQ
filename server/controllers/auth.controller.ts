@@ -9,18 +9,18 @@ export const login = async (req: Request, res: Response) => {
     try {
         const user = await User.findOne({ username });
         if (!user) {
-            return res.status(401).json({ message: "Invalid credentials" });
+            return res.status(401).json({ message: "Geçersiz kullanıcı adı veya şifre" });
         }
 
         const isMatch = await bcrypt.compare(password, user.passwordHash);
         if (!isMatch) {
-            return res.status(401).json({ message: "Invalid credentials" });
+            return res.status(401).json({ message: "Geçersiz kullanıcı adı veya şifre" });
         }
 
         const secret = process.env.JWT_SECRET;
         if (!secret) {
             console.error("JWT_SECRET is not defined");
-            return res.status(500).json({ message: "Internal server error" });
+            return res.status(500).json({ message: "Sunucu hatası" });
         }
 
         const token = jwt.sign({ userId: user._id, username: user.username }, secret, { expiresIn: '2h' });
@@ -29,6 +29,6 @@ export const login = async (req: Request, res: Response) => {
 
     } catch (error) {
         console.error("Login error:", error);
-        return res.status(500).json({ message: "Internal server error" });
+        return res.status(500).json({ message: "Sunucu hatası" });
     }
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import apiClient from '../src/apiClient'; // Adjust path as necessary
+import apiClient from '../apiClient'; // Adjust path as necessary
 
 const Reservations: React.FC = () => {
   const [formData, setFormData] = useState({

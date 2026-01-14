@@ -5,7 +5,7 @@
     "moduleResolution": "node",
     "target": "ES2020",
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": "./server",
     "noEmit": false,
     "allowImportingTsExtensions": false,
     "esModuleInterop": true,
@@ -13,15 +13,10 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "src/**/*.ts"
+    "server/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "src/**/*.test.ts",
-    "App.tsx",
-    "index.tsx",
-    "components",
-    "src/apiClient.ts",
-    "src/vite-env.d.ts"
+    "server/**/*.test.ts"
   ]
 }

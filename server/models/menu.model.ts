@@ -1,19 +1,17 @@
 import { Schema, model, Document } from 'mongoose';
 
-// Interface for a single price variant
 export interface IVariant {
   size: string;
   price: number;
 }
 
-// Interface for the Menu Item document
 export interface IMenuItem extends Document {
   name: string;
   description: string;
   category: string;
-  price?: number; // For items with a single price
+  price?: number;
   image?: string;
-  variants?: IVariant[]; // For items with variable prices
+  variants?: IVariant[];
 }
 
 const variantSchema = new Schema<IVariant>({
@@ -32,8 +30,6 @@ const menuItemSchema = new Schema<IMenuItem>({
   timestamps: true
 });
 
-// Add a custom validator manually if needed, or rely on service logic.
-// For now, removing the problematic schema option to fix build.
 menuItemSchema.pre('validate', function(next: any) {
     if (this.price == null && (!this.variants || this.variants.length === 0)) {
         next(new Error('A menu item must have either a single price or at least one price variant.'));

@@ -1,7 +1,0 @@
-bspiZADI2RkDrugX
-itazzsy_db_user
-
-
-للدخول الى صفحة الادمين 
-
-http://localhost:3000/x9z

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import apiClient from '../src/apiClient';
+import apiClient from '../apiClient';
 
 // --- Interfaces ---
 interface IVariant {

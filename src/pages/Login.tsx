@@ -17,16 +17,12 @@ const Login: React.FC = () => {
       
       const { token } = response.data;
       
-      // Store the token and username
       localStorage.setItem('token', token);
       localStorage.setItem('username', username);
       
-      // Configure apiClient to use this token for future requests? 
-      // It's better to use an interceptor, but for now we can just rely on the component adding headers.
-      // Or we can add a default header here:
       apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
-      navigate('/admin');
+      navigate('/x10z');
     } catch (err: any) {
       if (err.response && err.response.status === 401) {
         setError('Kullanıcı adı veya şifre hatalı!');

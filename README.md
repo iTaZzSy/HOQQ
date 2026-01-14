@@ -1,20 +1,58 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# HOQQA
 
-# Run and deploy your AI Studio app
+Reservation and management system for HOQQA Lounge.
 
-This contains everything you need to run your app locally.
+## Prerequisites
 
-View your app in AI Studio: https://ai.studio/apps/drive/1D48n0S3PQWINbJpADnmAb5VwZjshjPYU
+- Node.js
+- MongoDB Atlas Account (or local MongoDB)
 
-## Run Locally
+## Setup & Installation
 
-**Prerequisites:**  Node.js
+1.  **Clone the repository** (if you haven't already).
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
+3.  **Environment Configuration**:
+    Create a `.env` file in the root directory. You can use `.env.example` as a template.
+    Ensure you add your MongoDB URI.
+    ```env
+    MONGO_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/hoqqa?retryWrites=true&w=majority
+    SECRET_KEY=your_secret_key_here
+    PORT=5000
+    ```
 
+## Initialization
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Run the seed script **once** to populate the database with default data (admin account, initial menu items).
+```bash
+npm run seed
+```
+
+## Running the Application
+
+To run the full application, you need to start both the backend server and the frontend client.
+
+**1. Start the Backend Server:**
+```bash
+npm run dev:backend
+```
+The server will start on `http://localhost:5000`.
+
+**2. Start the Frontend Client:**
+open a new terminal:
+```bash
+npm run dev
+```
+The application will be accessible at `http://localhost:5173`.
+
+## Project Structure
+
+- `server/`: Backend source code (Node.js/Express)
+- `src/`: Frontend source code (React/Vite)
+- `uploads/`: Directory for uploaded images
+
+## Admin Access
+
+The admin dashboard is located at `/x10z`. Access is protected and requires valid credentials.

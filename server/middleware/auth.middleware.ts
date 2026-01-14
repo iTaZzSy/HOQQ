@@ -7,12 +7,12 @@ interface AuthRequest extends Request {
 
 export const authenticateToken = (req: AuthRequest, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+    const token = authHeader && authHeader.split(' ')[1];
 
-    if (!token) return res.sendStatus(401); // Unauthorized
+    if (!token) return res.status(401).json({ message: "Yetkisiz erişim" });
 
     jwt.verify(token, process.env.JWT_SECRET as string, (err: any, user: any) => {
-        if (err) return res.sendStatus(403); // Forbidden
+        if (err) return res.status(403).json({ message: "Erişim engellendi" });
         req.user = user;
         next();
     });

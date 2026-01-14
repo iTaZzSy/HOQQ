@@ -3,11 +3,11 @@ import apiClient from '../../apiClient.ts';
 
 interface IReservation {
   _id: string;
-  guestName: string;
+  name: string;
   phone: string;
   date: string;
   time: string;
-  guestCount: number;
+  guests: number;
 }
 
 const ReservationManager: React.FC = () => {
@@ -71,9 +71,9 @@ const ReservationManager: React.FC = () => {
             <tbody>
               {reservations.map((res) => (
                 <tr key={res._id} className="border-b border-stone-800 hover:bg-stone-800/50">
-                  <td className="p-3">{res.guestName}</td>
+                  <td className="p-3">{res.name}</td>
                   <td className="p-3">{res.phone}</td>
-                  <td className="p-3">{res.guestCount}</td>
+                  <td className="p-3">{res.guests}</td>
                   <td className="p-3">{new Date(res.date).toLocaleDateString('tr-TR')}</td>
                   <td className="p-3">{res.time}</td>
                   <td className="p-3">
