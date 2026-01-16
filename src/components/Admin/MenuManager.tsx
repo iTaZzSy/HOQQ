@@ -265,6 +265,7 @@ const MenuManager: React.FC = () => {
                                         <button 
                                             onClick={(e) => {
                                                 e.stopPropagation();
+                                                e.stopPropagation();
                                                 handleRemoveImage(item._id);
                                             }}
                                             className="absolute top-0 right-0 bg-red-600 text-white w-4 h-4 flex items-center justify-center text-[10px] hover:bg-red-700 z-20"
