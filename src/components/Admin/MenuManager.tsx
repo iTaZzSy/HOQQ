@@ -60,8 +60,10 @@ const MenuManager: React.FC = () => {
       }
 
       const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
       await apiClient.post('/menu', formData, {
         headers: {
+          'Authorization': `Bearer ${token}`
           'Authorization': `Bearer ${token}`
         },
       });
@@ -92,6 +94,12 @@ const MenuManager: React.FC = () => {
   const handleDelete = async (id: string) => {
     if (!window.confirm("Silmek istediğinize emin misiniz?")) return;
     try {
+      const token = localStorage.getItem('token');
+      await apiClient.delete(`/menu/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       const token = localStorage.getItem('token');
       await apiClient.delete(`/menu/${id}`, {
         headers: {
@@ -154,7 +162,11 @@ const MenuManager: React.FC = () => {
     
     try {
         const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');
         await apiClient.patch(`/menu/${id}`, formData, {
+            headers: { 
+              'Authorization': `Bearer ${token}`
+            }
             headers: { 
               'Authorization': `Bearer ${token}`
             }
@@ -168,6 +180,12 @@ const MenuManager: React.FC = () => {
   const handleRemoveImage = async (id: string) => {
       if(!window.confirm("Resmi kaldırmak istediğinize emin misiniz?")) return;
       try {
+          const token = localStorage.getItem('token');
+          await apiClient.patch(`/menu/${id}`, { removeImage: 'true' }, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
           const token = localStorage.getItem('token');
           await apiClient.patch(`/menu/${id}`, { removeImage: 'true' }, {
             headers: {
@@ -264,6 +282,7 @@ const MenuManager: React.FC = () => {
                                         <img src={`${import.meta.env.VITE_API_URL.replace('/api', '')}${item.image}`} alt={item.name} className="w-full h-full object-cover" />
                                         <button 
                                             onClick={(e) => {
+                                                e.stopPropagation();
                                                 e.stopPropagation();
                                                 handleRemoveImage(item._id);
                                             }}
