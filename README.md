@@ -56,3 +56,18 @@ The application will be accessible at `http://localhost:5173`.
 ## Admin Access
 
 The admin dashboard is located at `/x10z`. Access is protected and requires valid credentials.
+
+## Deployment
+
+To deploy this application, you must deploy both the **Frontend** and the **Backend**.
+
+### 1. Backend Deployment (Node.js)
+The backend (`server/` folder) must be hosted on a service that supports Node.js (e.g., Render, Railway, Heroku, DigitalOcean).
+- Ensure you set the `MONGO_URI` environment variable on your hosting provider.
+- The server listens on `PORT` (default 5000).
+
+### 2. Frontend Deployment (Static/SPA)
+The frontend (`src/`) can be hosted on services like Netlify, Vercel, or GitHub Pages.
+- **Crucial:** You must set the `VITE_API_URL` environment variable in your frontend hosting settings to point to your **deployed backend URL**.
+  - Example: `VITE_API_URL=https://your-backend-app.onrender.com/api`
+- Without this, the frontend will try to contact `localhost`, which will fail for public users.
