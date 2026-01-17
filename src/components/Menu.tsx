@@ -24,7 +24,15 @@ interface IMenuData {
 
 // --- Components ---
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://my-app-backend-s725.onrender.com/api').replace('/api', '');
+const getApiBaseUrl = () => {
+    let url = import.meta.env.VITE_API_URL;
+    if (!url) {
+        url = 'https://my-app-backend-s725.onrender.com/api';
+    }
+    return typeof url === 'string' ? url.replace('/api', '') : 'https://my-app-backend-s725.onrender.com';
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 const MenuItem: React.FC<IMenuItem> = ({ name, description, price, variants, image }) => {
     const renderPrice = () => {
