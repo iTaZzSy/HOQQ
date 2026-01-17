@@ -28,7 +28,7 @@ export const login = async (req: Request, res: Response) => {
         return res.json({ token });
 
     } catch (error) {
-        console.error("Login error:", error);
+        console.error("Login error details:", error);
         return res.status(500).json({ message: "Sunucu hatası" });
     }
 };
