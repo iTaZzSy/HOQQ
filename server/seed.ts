@@ -205,7 +205,7 @@ const seedDB = async () => {
     const hashedPassword = await bcrypt.hash("admin123", 10);
     await User.create({
       username: "admin",
-      password: hashedPassword,
+      passwordHash: hashedPassword,
     });
     console.log("Admin user seeded successfully!");
 
