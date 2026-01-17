@@ -271,7 +271,11 @@ const MenuManager: React.FC = () => {
                             <div className="relative group w-12 h-12 flex-shrink-0 bg-stone-900 rounded overflow-hidden border border-stone-600">
                                 {item.image ? (
                                     <>
-                                        <img src={`${API_BASE_URL}${item.image}`} alt={item.name} className="w-full h-full object-cover" />
+                                        <img 
+                                            src={item.image.startsWith('http') ? item.image : `${API_BASE_URL}${item.image}`} 
+                                            alt={item.name} 
+                                            className="w-full h-full object-cover" 
+                                        />
                                         <button 
                                             onClick={(e) => {
                                                 e.stopPropagation();

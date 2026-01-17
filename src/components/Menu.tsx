@@ -51,7 +51,7 @@ const MenuItem: React.FC<IMenuItem> = ({ name, description, price, variants, ima
                 {image && (
                     <div className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0 bg-stone-800 border border-stone-700">
                          <img 
-                            src={`${API_BASE_URL}${image}`} 
+                            src={image.startsWith('http') ? image : `${API_BASE_URL}${image}`} 
                             alt={name} 
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
                         />
