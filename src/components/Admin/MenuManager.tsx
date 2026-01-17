@@ -21,6 +21,14 @@ const MenuManager: React.FC = () => {
   };
   const API_BASE_URL = getApiBaseUrl();
 
+  const getImageUrl = (imagePath: string) => {
+    if (!imagePath) return '';
+    if (imagePath.trim().startsWith('http://') || imagePath.trim().startsWith('https://')) {
+        return imagePath;
+    }
+    return `${API_BASE_URL}${imagePath}`;
+  };
+
   const [menuItems, setMenuItems] = useState<IMenuItem[]>([]);
   const [loading, setLoading] = useState(false);
   
@@ -272,7 +280,7 @@ const MenuManager: React.FC = () => {
                                 {item.image ? (
                                     <>
                                         <img 
-                                            src={item.image.startsWith('http') ? item.image : `${API_BASE_URL}${item.image}`} 
+                                            src={getImageUrl(item.image)} 
                                             alt={item.name} 
                                             className="w-full h-full object-cover" 
                                         />
