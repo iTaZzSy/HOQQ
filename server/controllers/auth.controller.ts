@@ -18,6 +18,7 @@ export const login = async (req: Request, res: Response) => {
         }
 
         const secret = process.env.JWT_SECRET;
+        console.log("Checking JWT_SECRET...", secret ? "Exists" : "Missing");
         if (!secret) {
             console.error("JWT_SECRET is not defined");
             return res.status(500).json({ message: "Sunucu hatası" });
