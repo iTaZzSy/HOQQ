@@ -24,6 +24,8 @@ interface IMenuData {
 
 // --- Components ---
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://my-app-backend-s725.onrender.com/api').replace('/api', '');
+
 const MenuItem: React.FC<IMenuItem> = ({ name, description, price, variants, image }) => {
     const renderPrice = () => {
         if (price) {
@@ -41,7 +43,7 @@ const MenuItem: React.FC<IMenuItem> = ({ name, description, price, variants, ima
                 {image && (
                     <div className="w-16 h-16 rounded-md overflow-hidden flex-shrink-0 bg-stone-800 border border-stone-700">
                          <img 
-                            src={`${import.meta.env.VITE_API_URL.replace('/api', '')}${image}`} 
+                            src={`${API_BASE_URL}${image}`} 
                             alt={name} 
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" 
                         />
