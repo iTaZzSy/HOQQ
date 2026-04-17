@@ -27,13 +27,13 @@ const Events: React.FC = () => {
 
     const events = [
         {
-            image: 'https://images.unsplash.com/photo-1593305842134-9a3d4dfa66a1?q=80&w=2070&auto=format&fit=crop',
+            image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=2070&auto=format&fit=crop',
             title: 'Haftalık FIFA Turnuvası',
             date: 'Her Cuma Saat 20:00',
             description: 'Arkadaşlarınla rekabet et ve haftanın şampiyonu olma şansını yakala. Kazananı özel ödüller bekliyor!',
         },
         {
-            image: 'https://images.unsplash.com/photo-1611119213554-4659e9a444a4?q=80&w=1974&auto=format&fit=crop',
+            image: 'https://images.unsplash.com/photo-1606132034913-64906a683ec0?q=80&w=2070&auto=format&fit=crop',
             title: 'Ayın Nargilesi: "Tropik Esinti"',
             date: 'Tüm Ay Boyunca Geçerli',
             description: 'Bu aya özel, ananas, mango ve hindistan cevizi notalarıyla hazırlanan "Tropik Esinti" karışımımızı %20 indirimle deneyin.',
@@ -45,7 +45,7 @@ const Events: React.FC = () => {
             description: 'Canlı akustik müzik performansları eşliğinde nargilenizin keyfini çıkarın. Sakin ve keyifli bir akşam için yerinizi ayırtın.',
         },
         {
-            image: 'https://images.unsplash.com/photo-1579548122080-c351b7214618?q=80&w=2070&auto=format&fit=crop',
+            image: 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=2069&auto=format&fit=crop',
             title: 'Özel Kokteyl Haftası',
             date: 'Gelecek Hafta',
             description: 'Barmenimizin özel tarifleriyle hazırlanan yepyeni kokteyllerimizi keşfedin. Sadece bir haftalığına!',
