@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap');
+
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Cairo', sans-serif;
+  /* A rich, dark espresso color instead of plain black */
+  background-color: #1c1a19; 
+  cursor: default;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+input, textarea {
+  cursor: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"%3E%3Cdefs%3E%3Cfilter id="a" x="-50%25" y="-50%25" width="200%25" height="200%25"%3E%3CfeTurbulence baseFrequency="0.65" numOctaves="4" stitchTiles="stitch"/%3E%3CfeColorMatrix type="saturate" values="0"/%3E%3C/filter%3E%3C/defs%3E%3Crect width="100%25" height="100%25" filter="url(%23a)"/%3E%3C/svg%3E');
+  background-size: cover;
+  opacity: 0.05; /* Keeps the texture very subtle */
+  z-index: -1;
+}
